@@ -1,0 +1,105 @@
+.page {
+  min-height: 100vh;
+  background:#171718;
+  color: #e6e6e6;
+  padding: 32px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  margin-left: 5px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: #2a2a2c;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.cardHeader {
+  all: unset;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  cursor: pointer;
+}
+
+.cardHeader:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.meta {
+  font-size: 13px;
+  color: #9aa0a6;
+  margin-top: 4px;
+}
+
+.badge {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(34,197,94,0.15);
+  color: #86efac;
+}
+
+/* Smooth expand animation */
+.expand {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease;
+}
+
+.open {
+  max-height: 500px; /* enough for content */
+}
+
+.expandInner {
+  padding: 0 20px 20px 20px;
+}
+
+.exercise {
+  margin-top: 16px;
+}
+
+.exerciseName {
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: rgb(42, 89, 159);
+}
+
+.setRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.set {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+}
+
+.notes {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #b0b5bb;
+}
+
+
