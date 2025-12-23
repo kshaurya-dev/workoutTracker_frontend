@@ -1,0 +1,65 @@
+.page {
+  min-height: 100vh;
+  background: #0f0f10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  color: #e6e6e6;
+}
+
+.card {
+  width: 360px;
+  background: #171718;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 28px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+label {
+  font-size: 13px;
+  color: #9aa0a6;
+}
+
+input {
+  background: #0f0f10;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #e6e6e6;
+}
+
+input:focus {
+  outline: none;
+  border-color: rgba(255,255,255,0.2);
+}
+
+.button {
+  width: 100%;
+  margin-top: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #e6e6e6;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.button:hover {
+  background: rgba(255,255,255,0.12);
+}

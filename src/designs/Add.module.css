@@ -1,0 +1,99 @@
+.page {
+  min-height: 100vh;
+  background: #0f0f10;
+  color: #e6e6e6;
+  padding: 32px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+.card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #171718;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 180px;
+}
+
+label {
+  font-size: 13px;
+  color: #9aa0a6;
+}
+
+input {
+  background: #0f0f10;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #e6e6e6;
+}
+
+input:focus {
+  outline: none;
+  border-color: rgba(255,255,255,0.2);
+}
+
+.exerciseCard {
+  background: #111112;
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 16px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.exerciseTitle {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+.setRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.smallInput {
+  width: 90px;
+}
+
+.button {
+  margin-top: 5px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #e6e6e6;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.primary {
+  margin-left: auto;
+}

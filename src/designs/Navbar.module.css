@@ -1,0 +1,62 @@
+.navbar {
+  height: 56px;
+  background: #1a1a1a;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+}
+
+.brand {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e6e6e6;
+}
+
+.links {
+  margin-left: auto;
+  display: flex;
+  gap: 20px;
+}
+
+.link {
+  font-size: 14px;
+  color: #9aa0a6;
+  text-decoration: none;
+  padding: 6px 3px;
+  border-radius: 8px;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.link:hover {
+  background: rgba(255,255,255,0.06);
+  color: #e6e6e6;
+}
+
+.active {
+  color: #e6e6e6;
+  background: rgba(255,255,255,0.08);
+}
+.right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logout {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #e6e6e6;
+  padding: 6px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-left: 15px;
+}
+
+.logout:hover {
+  background: rgba(255,255,255,0.14);
+}
+

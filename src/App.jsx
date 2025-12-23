@@ -3,74 +3,81 @@ import SignUp from './components/SignUp'
 import Workouts from './components/Workouts'
 import Add from './components/Add'
 import Landing from './components/Landing'
-import { useDispatch } from 'react-redux'
+import { useDispatch , useSelector} from 'react-redux'
 import { useEffect } from 'react'
 import { setWorkouts } from './reducers/workoutReducer'
+import { setUser } from "./reducers/userReducer"
 import workoutService from './services/workouts'
+import { BrowserRouter as Router , Route , Link , Routes} from "react-router-dom"
+import { removeUser } from "./reducers/userReducer"
+import styles from './designs/Navbar.module.css'
 
-/*import { BrowserRouter as Router , Route , Link , Routes , useLocation } from "react-router-dom"
-const NavBar = ()=>{
-  const location = useLocation()
-  const path = location.pathname
 
-  if(path==="/")return null;
+const App = ()=>{
 
-  const padding ={
-    padding : 5
+  const dispatch = useDispatch()
+  const user = useSelector(state=>state.user)
+  const initializeWorkouts = async()=>{
+    const workouts = await workoutService.getAll()
+    dispatch(setWorkouts(workouts))
   }
+  useEffect(()=>{
+    const loggedUserJSON = window.localStorage.getItem('loggedWorkoutTrackerUser')
+    if(loggedUserJSON){
+      const user = JSON.parse(loggedUserJSON)
+      dispatch(setUser(user))
+      workoutService.setToken(user.token)
+      initializeWorkouts()
+    }
+  },[dispatch])
 
-  return(
-     <div>
-      {path === "/signup" && (
-        <Link style={padding} to="/login">log in</Link>
-      )}
-
-      {path === "/login" && (
-        <Link style={padding} to="/signup">sign up</Link>
-      )}
-
-      {(path === "/workouts" || path === "/add") && (
-        <>
-          <Link style={padding} to="/signup">sign up</Link>
-          <Link style={padding} to="/login">log in</Link>
-          <Link style={padding} to="/workouts">my workouts</Link>
-          <Link style={padding} to="/add">add workout</Link>
-        </>
-      )}
-    </div>
-  )
-}
-const  App=()=> {
-  //const [count, setCount] = useState(0)
-  return(
-    <Router>
-      <NavBar/>
+  const handleLogout=(event)=>{
+    event.preventDefault()
+    dispatch(removeUser())
+    window.localStorage.removeItem('loggedWorkoutTrackerUser')
+  }
+  
+  if(!user || user===""){
+    return(
+    <>
+    <Router >
+        <div className={styles.navbar}>
+          <div className={styles.brand}>Tracker</div>
+        <div className={styles.links}>
+          <Link className={styles.link} to="/">Home</Link>
+          <Link className={styles.link} to="/login">Login</Link>
+          <Link className={styles.link} to="/signup">Signup</Link>
+        </div>
+        </div>
       <Routes>
-        <Route path="/" element={<Landing/>}></Route>
-        <Route path="/signup" element={<SignUp/>}></Route>
-        <Route path="/login" element={<LogIn/>}></Route>
-        <Route path="/workouts" element={<Workouts/>}></Route>
-        <Route path="/add" element={<Add/>}></Route>
+        <Route path="/" element={<Landing/>}/>
+        <Route path="/login" element={<LogIn/>}/>
+        <Route path ="/signup" element={<SignUp/>}/>
       </Routes>
     </Router>
+  </>
   )
+  }
+  else{
+    return(
+      <>
+      <Router>
+        <div className={styles.navbar}>
+          <div className={styles.brand}>Tracker</div>
+          <div className={styles.links}>
+            <Link className={styles.link} to="/add"> Add Workout</Link>
+            <Link className={styles.link} to="/">Home</Link>
+          </div>
+          <button className={styles.logout} onClick={handleLogout}>Logout</button>
+        </div>
+          <Routes>
+            <Route path="/add" element={<Add/>}/>
+             <Route path="/" element={<Workouts/>}/>
+          </Routes>
+      </Router>
+      </>
+    )
+  }
 }
 
-/*const App  = ()=>{
-  const dispatch=useDispatch()
-  useEffect( ()=>{
-    workoutService.getAll().then(  workouts => dispatch(setWorkouts(workouts)))
-  } , [dispatch])
-  return(
-    <>
-    <Workouts/>
-    </>
-  )
-}*/
-const App = ()=>{
-  return(
-    //<Workouts/>
-    <Add/>
-  )
-}
 export default App
