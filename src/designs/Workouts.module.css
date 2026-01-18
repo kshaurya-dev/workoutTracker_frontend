@@ -106,18 +106,29 @@
   align-items: center;
 }
 
-.deleteBtn {
+.actionBtns{
+  display: flex;
+  gap: 6px;
+  margin-left: auto;  /* pushes them to the right */
+  align-items: center;
+}
+
+.editBtn,
+.deleteBtn{
   background: transparent;
   border: none;
   color: #9aa0a6;
   font-size: 16px;
-  padding: 6px 8px;
+  padding: 6px 20px;
   border-radius: 8px;
   cursor: pointer;
-  margin-left: auto;
-  margin-right:12px;
+  transition: background 0.15s ease;
 }
 
+.editBtn:hover {
+  background: rgb(81, 152, 196);
+  color: rgb(70, 70, 180);
+}
 .deleteBtn:hover {
   background: rgba(239,68,68,0.12);
   color: #ef4444;

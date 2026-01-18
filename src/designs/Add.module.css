@@ -51,6 +51,14 @@ input {
   padding: 10px 12px;
   color: #e6e6e6;
 }
+.notesInput{
+  background: #0f0f10;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: #e6e6e6;
+  display: flex;
+}
 
 input:focus {
   outline: none;
@@ -78,8 +86,11 @@ input:focus {
 
 .smallInput {
   width: 90px;
+  height: 30px;
 }
-
+.mediumInput{
+  width:200px;
+}
 .button {
   margin-top: 5px;
   background: rgba(255,255,255,0.06);
@@ -89,11 +100,182 @@ input:focus {
   border-radius: 10px;
   cursor: pointer;
 }
+.addSetButton{
+  margin-top: 5px;
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.08);
+  color: white;
+  font-size: small;
+  padding: 5px 9px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.saveSetButton{
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.08);
+  color: #2e7dd7; /* notion-ish light blue */
+  
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  margin-left:auto;
+  cursor: pointer;
+  transition: background 0.15s ease, border 0.15s ease;
+}
 
+.saveSetButton:hover{
+  background: rgba(46,125,215,0.08);
+  border: 1px solid rgba(46,125,215,0.25);
+}
+
+.saveSetButton:active{
+  background: rgba(46,125,215,0.12);
+}
+
+.addSetButton:hover {
+  background: rgba(255,255,255,0.1);
+}
 .button:hover {
   background: rgba(255,255,255,0.1);
+}
+.setLabel{
+  padding-top: 5px;
+  font-size: 13px;
+  color: #71787e;
+}
+.exerciseCard{
+  padding: 14px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exerciseTopRow{
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* ✅ if not enough space, sets go next line */
+}
+
+.exerciseName{
+  display: flex;
+  align-items: center;
+  margin-right:2px;
+  gap: 10px;
+  flex: 1;            /* takes available space */
+  min-width: 260px;   /* keeps input usable */
+}
+
+.setsInline{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;   /* ✅ sets wrap nicely */
+  align-items: center;
+  justify-content: flex-start;
+  flex: 2;
+  min-width: 220px;
+}
+
+.set{
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #e6e6e6;
+  white-space: nowrap;
+}
+.saveExerciseButton{
+  background: rgba(46,125,215,0.14); /* soft blue fill */
+  border: 1px solid rgba(46,125,215,0.35);
+  color: #8fc6ff; /* lighter blue text */
+  
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: background 0.15s ease, border 0.15s ease;
+}
+
+.saveExerciseButton:hover{
+  background: rgba(46,125,215,0.20);
+  border: 1px solid rgba(46,125,215,0.45);
+}
+
+.saveExerciseButton:active{
+  background: rgba(46,125,215,0.26);
+}
+.exercise{
+  margin-top: 12px;
+}
+
+.exerciseRow{
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+
+  padding: 12px 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.exerciseNameText{
+  font-size: 14px;
+  font-weight: 600;
+  color: #e6e6e6;
+
+  min-width: 160px;
+  flex: 1;
+}
+
+.exerciseSets{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+
+  flex: 2;
+  min-width: 220px;
+}
+
+/* row to align add button on right */
+.addExerciseRow{
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* minimal notion-ish action button */
+.addExerciseButton{
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.10);
+  color: #2e7dd7;
+
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: background 0.15s ease, border 0.15s ease;
+}
+
+.addExerciseButton:hover{
+  background: rgba(46,125,215,0.08);
+  border: 1px solid rgba(46,125,215,0.25);
+}
+
+.addExerciseButton:active{
+  background: rgba(46,125,215,0.12);
 }
 
 .primary {
   margin-left: auto;
 }
+

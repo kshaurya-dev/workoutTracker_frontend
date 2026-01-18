@@ -6,11 +6,13 @@ import Notification from "./Notification"
 import { createNotification , removeNotification } from "../reducers/notificationReducer"
 import workoutService from "../services/workouts"
 import { removeWorkout } from "../reducers/workoutReducer"
+import EditForm from "./EditForm"
 export default function Workouts() {
 
   const dispatch = useDispatch()
   const [openIds, setOpenIds] = useState(new Set())
   const workouts=useSelector( state => state.workouts)
+  const [workoutToEdit , setWorkoutToEdit]=useState()
 
   const setNotification =(name,type)=>{
       if(type==="success"){
@@ -39,16 +41,17 @@ export default function Workouts() {
       setNotification(name , "error")
     }
   }
-  return (
+  const handleEdit = (id)=>{
+    const workout = workouts.find(w=>w.id===id)
+    setWorkoutToEdit(workout)
+  }
+  if(!workoutToEdit){
+    return (
   <>
-    {/* global toast */}
     <Notification />
-
-    {/* page wrapper */}
     <div className={styles.page}>
       <h1 className={styles.title}>My Workouts</h1>
 
-      {/* workout list */}
       <div className={styles.list}>
         {workouts.map(w => {
           const open = openIds.has(w.id)
@@ -56,10 +59,8 @@ export default function Workouts() {
           return (
             <div key={w.id} className={styles.card}>
 
-              {/* always-visible row */}
               <div className={styles.cardTopRow}>
 
-                {/* toggle open/close */}
                 <button
                   className={styles.cardHeader}
                   onClick={() => {
@@ -76,14 +77,15 @@ export default function Workouts() {
                   </div>
                 </button>
 
-                {/* delete workout */}
-                <button
-                  className={styles.deleteBtn}
-                  onClick={() => handleDelete(w.id , w.name)}
-                  title="Delete workout"
-                >
-                  ✕
-                </button>
+                {/* edit buttons*/}
+                <div className={styles.actionBtns}>
+                  <button className={styles.editBtn} type="button"
+                  onClick={()=>handleEdit(w.id)}>✎</button>
+
+                  <button className={styles.deleteBtn} 
+                  type="button"
+                  onClick={()=>handleDelete(w.id , w.name)}>✕</button>
+                </div>
               </div>
 
               {/* expandable details */}
@@ -101,8 +103,7 @@ export default function Workouts() {
                           <span key={s.id} className={styles.set}>
                             {s.weight} × {s.reps}
                           </span>
-                        ))}
-                      </div>
+                        ))}</div>
                     </div>
                   ))}
 
@@ -117,7 +118,13 @@ export default function Workouts() {
       </div>
     </div>
   </>
-)
+  )
+}
+else{
+  return(
+    <EditForm workout={workoutToEdit} setWorkoutToEdit={setWorkoutToEdit}/>
+  )
+}
 
 }
 
