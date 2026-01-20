@@ -15,8 +15,12 @@ export const workoutSlice = createSlice({
         },
         removeWorkout(state , action){
            return state.filter(w=>w.id !== action.payload)
+        },
+        editWorkout(state , action){
+            return state.map(w=>w.id === action.payload.id ? action.payload : w)
         }
     }
 })
-export const {createWorkout , setWorkouts , removeWorkout} = workoutSlice.actions
+
+export const {createWorkout , setWorkouts , removeWorkout , editWorkout} = workoutSlice.actions
 export default workoutSlice.reducer

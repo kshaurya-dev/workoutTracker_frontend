@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useSelector } from "react-redux"
 const baseUrl = 'http://localhost:3001/api/workouts'
 
 let token = null
@@ -31,4 +32,9 @@ const remove = async(id)=>{
   const response = await axios.delete(url , config)
   return response.data
 }
-export default { getAll , create ,setToken , remove}
+const change = async(id , changedWorkout)=>{
+  const url = `${baseUrl}/${id}`
+  const response = await axios.put(url , changedWorkout)
+  return response.data
+}
+export default { getAll , create ,setToken , remove , change}
