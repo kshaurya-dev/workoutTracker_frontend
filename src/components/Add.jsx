@@ -4,6 +4,7 @@ import { useDispatch ,} from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { setNotification } from "../reducers/notificationReducer"
 import { appendWorkout } from "../reducers/workoutReducer"
+import Notification from "./Notification"
 
 
 const Add=()=>{
@@ -17,28 +18,38 @@ const Add=()=>{
     })
     const addWorkout =async(event)=>{
         event.preventDefault()
-        const currentDate = new Date()
-        try{
+        if(!workout.name){
+            dispatch(setNotification({
+            type:`error`,
+            message:`workout name is required.`}))
+        }
+        else if(!workout.exercises.length){
+            dispatch(setNotification({
+            type:`error`,
+            message:`exercises are required`}))
+        }
+        else{
+            try{
+                const currentDate = new Date()
             const newWorkout={...workout ,date:currentDate}
-            dispatch(appendWorkout(newWorkout))
+            await dispatch(appendWorkout(newWorkout))
             setWorkout({
                 name: "",duration: "",notes: "",exercises: []
             })
             dispatch(setNotification({
                 type:`success`,
                 message:`${workout.name} was added.`}))
-            navigate('/')
+                navigate('/')
+            }
+            catch(error){
+                //
+            }
         }
-        catch(error){
-            console.log("error occured while creating a new workout : ", error)
-            dispatch(setNotification({
-            type:`error`,
-            message:`${workout.name} couldn't be added.`
-        }))
-        }
+        
     }
     return(
         <>
+        <Notification/>
         <WorkoutForm workout={workout} setWorkout={setWorkout}
         addWorkout={addWorkout}/>
         </>

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import workoutService from '../services/workouts'
-
+import { setNotification } from "./notificationReducer"
 export const workoutSlice = createSlice({
     name:'workout' ,
     initialState:[],
@@ -35,9 +35,19 @@ export const initializeWorkouts=()=>{
 }
 export  const appendWorkout=(content)=>{
     return async(dispatch)=>{
-        const newWorkout=await workoutService.create(content)
-        console.log("new workout added : ", newWorkout)
-        dispatch(createWorkout(newWorkout))
+        try{
+            const newWorkout=await workoutService.create(content)
+            console.log("new workout added : ", newWorkout)
+            dispatch(createWorkout(newWorkout))
+        }
+        catch(error){
+            console.log("error occured while creating workout :" , error.message)
+            dispatch(setNotification({
+            type:`error`,
+            message:`${content.name} couldn't be added.`
+        }))
+        throw error
+        }
     }
 }
 export const deleteWorkout = (id)=>{

@@ -1,8 +1,10 @@
 import { useState } from "react"
 import styles from "../designs/Add.module.css"
-
+import { setNotification } from "../reducers/notificationReducer"
+import { useDispatch } from "react-redux"
+import Notification from "./Notification"
 const ExerciseForm=({addExercise , setShowExercise , index})=>{
-
+    const dispatch = useDispatch()
     const [showSet , setShowSet]=useState(false)
     const [exercise , setExercise]=useState({
         name:"",
@@ -12,25 +14,50 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
     const [weight , setWeight]=useState()
     const [reps , setReps]=useState()
 
-    const addSet=()=>{  
-        const newSet={ weight:weight , reps:reps }
-        const updatedExercise={...exercise , sets:[...exercise.sets ,newSet]}
-        console.log(updatedExercise)
-        setExercise(updatedExercise)
-        setShowSet(!showSet)
-        setReps()
-        setWeight()
+    const addSet=(e)=>{ 
+        e.preventDefault() 
+        if(!weight || !reps){
+            dispatch(setNotification({
+                type:'error',
+                message:'set fields cannot be empty'
+            }))
+        }
+        else{
+            const newSet={ weight:weight , reps:reps }
+            const updatedExercise={...exercise , sets:[...exercise.sets ,newSet]}
+            console.log(updatedExercise)
+            setExercise(updatedExercise)
+            setShowSet(!showSet)
+            setReps()
+            setWeight()
+        }
     }
-    const saveExercise=()=>{
-        console.log(exercise)
-        addExercise(exercise)
-        setExercise({
-            name:"",
-            sets:[]})
-        setShowExercise(false)
+    const saveExercise=(e)=>{
+        e.preventDefault()
+        if(exercise.name===''){
+            dispatch(setNotification({
+                type:'error',
+                message:'Exercise Name is required'
+            }))
+        }
+        else if(!exercise.sets.length){
+            dispatch(setNotification({
+                type:'error',
+                message:'set field is required'
+            }))
+        }
+        else{
+            console.log(exercise)
+            addExercise(exercise)
+            setExercise({
+                name:"",
+                sets:[]})
+                setShowExercise(false)
+            }
     }
     return(
     <>
+    <Notification/>
     <div className={styles.exerciseCard}>
         <div className={styles.exerciseTopRow}>
             <div className={styles.exerciseName}>
@@ -71,13 +98,13 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
         value={weight}
         onChange={(e) => setWeight(e.target.value)}/>
 
-      <button className={styles.saveSetButton} onClick={addSet}>
+      <button className={styles.saveSetButton} onClick={(e)=>addSet(e)}>
         Save Set
       </button>
     </div>
   )}
   <button type="submit" 
-  onClick={saveExercise} className={styles.saveExerciseButton}>save Exercise</button>
+  onClick={(e)=>saveExercise(e)} className={styles.saveExerciseButton}>save Exercise</button>
 </div>
 </>
 )}

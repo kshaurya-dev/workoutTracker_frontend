@@ -72,7 +72,7 @@ export default function Workouts() {
                   <div>
                     <div className={styles.cardTitle}>{w.name}</div>
                     <div className={styles.meta}>
-                      {w.date.slice(0,10)} · {w.duration} min
+                      {w.date.slice(0,10)} · {w.date.slice(12,16)} · {w.duration} min
                     </div>
                   </div>
                 </button>
