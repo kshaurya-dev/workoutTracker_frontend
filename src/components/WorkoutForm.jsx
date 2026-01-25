@@ -96,6 +96,9 @@ const WorkoutForm=({workout , setWorkout , addWorkout})=>{
         const updatedWorkout={...workout , exercises:[...workout.exercises , newExercise]}
         setWorkout(updatedWorkout)
     }
+    const handleAddWorkout=(workout)=>{
+        
+    }
     return(
         <>
         <div className={styles.page}>
@@ -103,7 +106,7 @@ const WorkoutForm=({workout , setWorkout , addWorkout})=>{
 
                 <div className={styles.title}>Add Workout</div>
 
-                <form onSubmit={addWorkout}>
+                <form onSubmit={handleAddWorkout}>
                     <div className={`${styles.section} ${styles.row}`}>
 
                         <div className={styles.field}>

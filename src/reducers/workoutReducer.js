@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-
+import workoutService from '../services/workouts'
 
 export const workoutSlice = createSlice({
     name:'workout' ,
@@ -9,18 +9,50 @@ export const workoutSlice = createSlice({
         createWorkout(state , action){
             const content = action.payload
             state.push(content)
+            state.sort((a,b)=> new Date(b.date) - new Date(a.date))
         },
         setWorkouts(state , action){
-            return action.payload
+            return action.payload.sort((a,b)=> new Date(b.date) - new Date(a.date))
         },
         removeWorkout(state , action){
            return state.filter(w=>w.id !== action.payload)
         },
-        editWorkout(state , action){
+        edit(state , action){
             return state.map(w=>w.id === action.payload.id ? action.payload : w)
         }
     }
 })
+const {setWorkouts , createWorkout , removeWorkout , edit} = workoutSlice.actions
 
-export const {createWorkout , setWorkouts , removeWorkout , editWorkout} = workoutSlice.actions
+//thunks
+
+export const initializeWorkouts=()=>{
+    return async(dispatch)=>{
+        const workouts = await workoutService.getAll()
+        dispatch(setWorkouts(workouts))
+        console.log("workouts fetched")
+    }
+}
+export  const appendWorkout=(content)=>{
+    return async(dispatch)=>{
+        const newWorkout=await workoutService.create(content)
+        console.log("new workout added : ", newWorkout)
+        dispatch(createWorkout(newWorkout))
+    }
+}
+export const deleteWorkout = (id)=>{
+    return async(dispatch)=>{
+        const response= await workoutService.remove(id)
+        dispatch(removeWorkout(id))
+        console.log("workout was deleted:" , response)
+    }
+}
+export const editWorkout=(id , workout)=>{
+    return async(dispatch)=>{
+        const response = await  workoutService.change(id , workout)
+        console.log("workout was edited")
+        dispatch(edit(response))
+    }
+}
+
 export default workoutSlice.reducer

@@ -3,42 +3,35 @@ import { useState } from "react"
 import { useSelector ,  useDispatch} from "react-redux"
 import styles from "../designs/Workouts.module.css"
 import Notification from "./Notification"
-import { createNotification , removeNotification } from "../reducers/notificationReducer"
-import workoutService from "../services/workouts"
-import { removeWorkout } from "../reducers/workoutReducer"
+import { setNotification } from "../reducers/notificationReducer"
+
+import { deleteWorkout } from "../reducers/workoutReducer"
 import EditForm from "./EditForm"
+import Confirm from "./Confirm"
+
 export default function Workouts() {
 
   const dispatch = useDispatch()
   const [openIds, setOpenIds] = useState(new Set())
   const workouts=useSelector( state => state.workouts)
   const [workoutToEdit , setWorkoutToEdit]=useState()
+  const [workoutToDelete , setWorkoutToDelete] = useState()
 
-  const setNotification =(name,type)=>{
-      if(type==="success"){
-        dispatch(createNotification({
-        type:`${type}`,
-        message:`${name} was deleted.`}))
-      }
-      else{
-        dispatch(createNotification({
-        type:`${type}`,
-        message:`${name} couldn't be deleted.`
-      }))
-      }
-      setTimeout(()=>dispatch(removeNotification()), 5000)
-    }
-  
-  const handleDelete = async(id , name)=>{
-    event.preventDefault()
+  const handleDelete = async()=>{
     try{
-      const response = await workoutService.remove(id)
-      dispatch(removeWorkout(id))
-      setNotification(name , "success")
+      dispatch(deleteWorkout( workoutToDelete.id))
+      dispatch(setNotification({
+        type:`success`,
+        message:`${workoutToDelete.name} was deleted.`
+      }))
+      setWorkoutToDelete(null)
     }
     catch(error){
       console.log("some error occured while deleting the workout : " , error)
-      setNotification(name , "error")
+      dispatch(setNotification({
+        type:`error`,
+        message:`${setWorkoutToDelete?.name} couldn't be deleted.`
+      }))
     }
   }
   const handleEdit = (id)=>{
@@ -48,6 +41,13 @@ export default function Workouts() {
   if(!workoutToEdit){
     return (
   <>
+    { 
+    workoutToDelete && 
+    <Confirm type="delete" 
+    message={`Delete ${workoutToDelete.name}`}
+    handleConfirm={handleDelete} setState={setWorkoutToDelete}/>
+    }
+
     <Notification />
     <div className={styles.page}>
       <h1 className={styles.title}>My Workouts</h1>
@@ -84,7 +84,7 @@ export default function Workouts() {
 
                   <button className={styles.deleteBtn} 
                   type="button"
-                  onClick={()=>handleDelete(w.id , w.name)}>✕</button>
+                  onClick={()=>setWorkoutToDelete(w)}>✕</button>
                 </div>
               </div>
 

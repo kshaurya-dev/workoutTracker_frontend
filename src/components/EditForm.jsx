@@ -1,8 +1,7 @@
 import { useState } from "react"
 import WorkoutForm from "./WorkoutForm"
-import { createNotification,removeNotification } from "../reducers/notificationReducer"
+import { setNotification } from "../reducers/notificationReducer"
 import { useDispatch } from "react-redux"
-import workoutService from '../services/workouts'
 import { editWorkout } from "../reducers/workoutReducer"
 
 const EditForm=({workout , setWorkoutToEdit})=>{
@@ -20,30 +19,20 @@ const EditForm=({workout , setWorkoutToEdit})=>{
                 exercises: w.exercises,
                 date: w.date
             }
-            const changedWorkout = await workoutService.change(workout.id , editedWorkout)
-            dispatch(editWorkout(changedWorkout))
-            setNotification(w.name, "success")
+            dispatch(editWorkout(workout.id,editedWorkout))
+            dispatch(setNotification({
+                type:`success`,
+                message:`${w.name} was edited.`
+            }))
             setWorkoutToEdit()
         }
         catch(error){
             console.log("error occured in editing workout = " , error)
-            setNotification(w.name, "error")
-        }
-        setTimeout(()=>dispatch(removeNotification()), 5000)
-    }
-    const setNotification =(name,type)=>{
-        if(type==="success"){
-            dispatch(createNotification({
-                type:`${type}`,
-                message:`${name} was edited.`}))
-            }
-        else{
-            dispatch(createNotification({
-            type:`${type}`,
-            message:`${name} couldn't be edited.`
+            dispatch(setNotification({
+            type:`error`,
+            message:`${w.name} couldn't be edited.`
         }))
         }
-        setTimeout(()=>dispatch(removeNotification()), 5000)
     }
     return(
         <>

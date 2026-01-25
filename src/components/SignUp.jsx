@@ -1,7 +1,7 @@
 import { useState } from "react"
 import signupService from '../services/signup'
 import styles from '../designs/LogIn.module.css'
-import { createNotification, removeNotification } from "../reducers/notificationReducer"
+import { setNotification} from "../reducers/notificationReducer"
 import { useDispatch } from "react-redux"
 import Notification from "./Notification"
 const SignUp=()=>{
@@ -11,33 +11,26 @@ const SignUp=()=>{
     const [password , setPassword] = useState('')
     const [name , setName] = useState('')
 
-    const setNotification =(name,type)=>{
-        if(type==="success"){
-          dispatch(createNotification({
-          type:`${type}`,
-          message:`Signed up as ${name} `}))
-        }
-        else{
-          dispatch(createNotification({
-          type:`${type}`,
-          message:`couldn't sign you up `
-        }))
-        }
-        setTimeout(()=>dispatch(removeNotification()), 5000)
-      }
+    
     const handleSignup = async event=>{
         event.preventDefault()
         try{
             const newUser = await signupService.signup({username , name , password})
             console.log(newUser)
-            setNotification(newUser.name , "success")
+            dispatch(setNotification({
+                type:`$success`,
+                message:`Signed up as ${newUser.name}`
+            }))
             setUsername('')
             setPassword('')
             setName('')
         }
         catch(error){
-            console.log("creation of new user failed " , error)
-            setNotification(error , "error")
+            console.log("creation of new user failed: " , error)
+            dispatch(setNotification({
+                type:`error`,
+                message:`couldn't sign you up `
+            }))
         }
     }
     return(
