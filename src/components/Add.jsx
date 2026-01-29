@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom"
 import { setNotification } from "../reducers/notificationReducer"
 import { appendWorkout } from "../reducers/workoutReducer"
 import Notification from "./Notification"
-
-
+import LoadingOverlay from "./LoadingOverlay"
 const Add=()=>{
     const navigate =useNavigate()
     const dispatch = useDispatch()
+
+    const [showLoading , setShowLoading]=useState(false)
+
     const [workout , setWorkout]=useState({
             name:"",
             duration:"" , 
@@ -29,6 +31,7 @@ const Add=()=>{
             message:`exercises are required`}))
         }
         else{
+            const timer = setTimeout(()=>setShowLoading(true),200)
             try{
                 const currentDate = new Date()
             const newWorkout={...workout ,date:currentDate}
@@ -44,11 +47,16 @@ const Add=()=>{
             catch(error){
                 //
             }
+            finally{
+                setShowLoading(false)
+                clearTimeout(timer)
+            }
         }
         
     }
     return(
         <>
+        <LoadingOverlay show={showLoading}text={'Saving Workout...'}/>
         <Notification/>
         <WorkoutForm workout={workout} setWorkout={setWorkout}
         addWorkout={addWorkout}/>

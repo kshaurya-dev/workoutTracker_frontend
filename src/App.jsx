@@ -45,7 +45,7 @@ const App = () => {
     <>
       {user && loggingOut && (
         <Confirm
-          type="delete"
+          type="log out"
           message={`Log out as ${user.name}`}
           handleConfirm={handleLogout}
           setState={setLoggingOut}

@@ -1,0 +1,38 @@
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #171718;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  margin-top: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.dropdownItem {
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dropdownItem:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.dropdownItemMuted {
+  padding: 10px 12px;
+  color: #9aa0a6;
+}
+
+.muscleHint {
+  font-size: 12px;
+  color: #9aa0a6;
+}

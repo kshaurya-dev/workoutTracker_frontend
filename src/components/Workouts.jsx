@@ -8,18 +8,21 @@ import { setNotification } from "../reducers/notificationReducer"
 import { deleteWorkout } from "../reducers/workoutReducer"
 import EditForm from "./EditForm"
 import Confirm from "./Confirm"
+import LoadingOverlay from "./LoadingOverlay"
 
 export default function Workouts() {
 
   const dispatch = useDispatch()
+   const [isDeleting, setIsDeleting]=useState(false)
   const [openIds, setOpenIds] = useState(new Set())
   const workouts=useSelector( state => state.workouts)
   const [workoutToEdit , setWorkoutToEdit]=useState()
   const [workoutToDelete , setWorkoutToDelete] = useState()
 
   const handleDelete = async()=>{
+    const timer = setTimeout(()=> setIsDeleting(true), 10)
     try{
-      dispatch(deleteWorkout( workoutToDelete.id))
+      await dispatch(deleteWorkout( workoutToDelete.id))
       dispatch(setNotification({
         type:`success`,
         message:`${workoutToDelete.name} was deleted.`
@@ -27,11 +30,13 @@ export default function Workouts() {
       setWorkoutToDelete(null)
     }
     catch(error){
-      console.log("some error occured while deleting the workout : " , error)
-      dispatch(setNotification({
-        type:`error`,
-        message:`${setWorkoutToDelete?.name} couldn't be deleted.`
-      }))
+     setIsDeleting(false)
+     setWorkoutToDelete(null)
+     console.log("control was here")
+    }
+    finally{
+      setIsDeleting(false)
+      clearTimeout(timer)
     }
   }
   const handleEdit = (id)=>{
@@ -47,7 +52,7 @@ export default function Workouts() {
     message={`Delete ${workoutToDelete.name}`}
     handleConfirm={handleDelete} setState={setWorkoutToDelete}/>
     }
-
+    <LoadingOverlay show={isDeleting} text={'Deleting...'}/>
     <Notification />
     <div className={styles.page}>
       <h1 className={styles.title}>My Workouts</h1>

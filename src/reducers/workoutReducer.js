@@ -52,9 +52,18 @@ export  const appendWorkout=(content)=>{
 }
 export const deleteWorkout = (id)=>{
     return async(dispatch)=>{
-        const response= await workoutService.remove(id)
-        dispatch(removeWorkout(id))
-        console.log("workout was deleted:" , response)
+        try{
+            const response= await workoutService.remove(id)
+            dispatch(removeWorkout(id))
+            console.log("workout was deleted:" , response)}
+        catch(error){
+            console.log("error occured while creating workout :" , error.message)
+            dispatch(setNotification({
+            type:`error`,
+            message:`${error.message}`
+        }))
+        throw error
+        }
     }
 }
 export const editWorkout=(id , workout)=>{

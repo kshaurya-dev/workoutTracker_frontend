@@ -3,11 +3,14 @@ import styles from "../designs/Add.module.css"
 import { setNotification } from "../reducers/notificationReducer"
 import { useDispatch } from "react-redux"
 import Notification from "./Notification"
+import ExerciseSelect from "./ExerciseSelect/ExerciseSelect"
 const ExerciseForm=({addExercise , setShowExercise , index})=>{
     const dispatch = useDispatch()
     const [showSet , setShowSet]=useState(false)
     const [exercise , setExercise]=useState({
         name:"",
+        id:"",
+        primaryMuscle:"",
         sets:[]
     })
 
@@ -62,9 +65,11 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
         <div className={styles.exerciseTopRow}>
             <div className={styles.exerciseName}>
                 <label>Exercise{index + 1}:</label>
-                <input value={exercise.name}
-                className={styles.mediumInput}
-                onChange={(e) => setExercise({ ...exercise, name: e.target.value })}/>
+                <ExerciseSelect  onSelect={(ex) =>setExercise({...exercise,
+                id: ex.id,
+                name: ex.name,
+                primaryMuscle: ex.primaryMuscle,})
+                }/>
             </div>
 
     <div className={styles.setsInline}>

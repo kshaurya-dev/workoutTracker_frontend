@@ -4,7 +4,7 @@ const Landing=()=>{
     return(
         <>
         <div className={styles.page}>
-            <p >hello ! Welcome to shaurya's workout tracker , this is my first ever project</p>
+            <p >Hello ! Welcome to shaurya's workout tracker .</p>
         </div>
         <div>
             <Link to="/SignUp">SignUp</Link>

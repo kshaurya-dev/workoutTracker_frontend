@@ -8,18 +8,24 @@ import styles from "../designs/LogIn.module.css"
 import { useNavigate } from "react-router-dom"
 import Notification from "./Notification"
 import { setNotification } from "../reducers/notificationReducer"
+import LoadingOverlay from "./LoadingOverlay"
 
 const LogIn = () => {
 
   const navigate= useNavigate()
   const dispatch = useDispatch()
   
+  const [loggingIn , setLoggingIn]=useState(false)
+  const [showLoading , setShowLoading]=useState(false)
   const [username, setUserName] = useState('')
   const [password, setPassword] = useState('')
   
 
   const handleLogin = async event => {
     event.preventDefault()
+    setLoggingIn(true)
+    const timer = setTimeout(()=>setShowLoading(true) , 100)
+
     try {
       const user = await loginService.login({ username, password })
       
@@ -47,8 +53,17 @@ const LogIn = () => {
         message:`Wrong Credentials !`
       }))
     }
+    finally{
+      clearTimeout(timer)
+      setLoggingIn(false)
+      setShowLoading(false)
+    }
   }
-
+  if(showLoading){
+    return(
+      <LoadingOverlay show={true} text='Logging In'/>
+    )
+  }
   return (
     <><Notification/>
     <div className={styles.page}>
@@ -60,6 +75,7 @@ const LogIn = () => {
           <input
             type="text"
             value={username}
+            disabled={loggingIn}
             onChange={e => setUserName(e.target.value)}
           />
         </div>
@@ -69,12 +85,14 @@ const LogIn = () => {
           <input
             type="password"
             value={password}
+            disabled={loggingIn}
             onChange={e => setPassword(e.target.value)}
           />
         </div>
 
-        <button className={styles.button} type="submit">
-          Log in
+        <button className={styles.button} type="submit"
+        disabled={loggingIn}>
+          {showLoading ? "Logging in..." : "Log In"}
         </button>
       </form>
     </div>
