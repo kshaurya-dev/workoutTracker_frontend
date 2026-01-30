@@ -9,6 +9,13 @@ const ExerciseSelect=({onSelect})=>{
     const filtered = EXERCISES.filter(ex=>
         ex.name.toLowerCase().includes(query.toLowerCase())
     )
+    const handleSelect =(ex)=>{
+      const exercise = EXERCISES.filter(e=>
+        e.name.toLowerCase().includes(ex.name.toLowerCase())
+      )
+      onSelect(exercise[0])
+      
+    }
     return (
     <div className={styles.dropdownWrapper}>
       <input
@@ -32,10 +39,10 @@ const ExerciseSelect=({onSelect})=>{
 
           {filtered.map(ex => (
             <div
-              key={ex.id}
+              key={ex.exercise_id}
               className={styles.dropdownItem}
               onClick={() => {
-                onSelect(ex)
+                handleSelect(ex)
                 setQuery(ex.name)
                 setOpen(false)
               }}

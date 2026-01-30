@@ -13,7 +13,7 @@ import LoadingOverlay from "./LoadingOverlay"
 export default function Workouts() {
 
   const dispatch = useDispatch()
-   const [isDeleting, setIsDeleting]=useState(false)
+  const [isDeleting, setIsDeleting]=useState(false)
   const [openIds, setOpenIds] = useState(new Set())
   const workouts=useSelector( state => state.workouts)
   const [workoutToEdit , setWorkoutToEdit]=useState()
@@ -111,12 +111,10 @@ export default function Workouts() {
                         ))}</div>
                     </div>
                   ))}
-
                   {/* notes */}
                   <div className={styles.notes}>{w.notes}</div>
                 </div>
               </div>
-
             </div>
           )
         })}

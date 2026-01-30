@@ -9,13 +9,13 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
     const [showSet , setShowSet]=useState(false)
     const [exercise , setExercise]=useState({
         name:"",
-        id:"",
+        exercise_id:"",
         primaryMuscle:"",
         sets:[]
     })
 
-    const [weight , setWeight]=useState()
-    const [reps , setReps]=useState()
+    const [weight , setWeight]=useState('')
+    const [reps , setReps]=useState('')
 
     const addSet=(e)=>{ 
         e.preventDefault() 
@@ -28,7 +28,6 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
         else{
             const newSet={ weight:weight , reps:reps }
             const updatedExercise={...exercise , sets:[...exercise.sets ,newSet]}
-            console.log(updatedExercise)
             setExercise(updatedExercise)
             setShowSet(!showSet)
             setReps()
@@ -50,10 +49,11 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
             }))
         }
         else{
-            console.log(exercise)
             addExercise(exercise)
             setExercise({
                 name:"",
+                exercise_id:"",
+                primaryMuscle:"",
                 sets:[]})
                 setShowExercise(false)
             }
@@ -65,11 +65,13 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
         <div className={styles.exerciseTopRow}>
             <div className={styles.exerciseName}>
                 <label>Exercise{index + 1}:</label>
-                <ExerciseSelect  onSelect={(ex) =>setExercise({...exercise,
-                id: ex.id,
+                <ExerciseSelect  onSelect={(ex) =>{
+                setExercise({...exercise,
+                exercise_id: ex.exercise_id,
                 name: ex.name,
-                primaryMuscle: ex.primaryMuscle,})
-                }/>
+                primaryMuscle: ex.primaryMuscle,
+                })
+                }}/>
             </div>
 
     <div className={styles.setsInline}>
@@ -95,14 +97,14 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
       <input
         className={styles.smallInput}
         value={reps}
-        onChange={(e) => setReps(e.target.value)}/>
-
+        onChange={(e) => setReps(e.target.value)}
+        />
       <label className={styles.setLabel}>weight</label>
       <input
         className={styles.smallInput}
         value={weight}
-        onChange={(e) => setWeight(e.target.value)}/>
-
+        onChange={(e) => setWeight(e.target.value)}
+        />
       <button className={styles.saveSetButton} onClick={(e)=>addSet(e)}>
         Save Set
       </button>
@@ -128,9 +130,6 @@ const WorkoutForm=({workout , setWorkout , addWorkout})=>{
         const updatedWorkout={...workout , exercises:[...workout.exercises , newExercise]}
         setWorkout(updatedWorkout)
     }
-    const handleAddWorkout=(workout)=>{
-        
-    }
     return(
         <>
         <div className={styles.page}>
@@ -138,7 +137,7 @@ const WorkoutForm=({workout , setWorkout , addWorkout})=>{
 
                 <div className={styles.title}>Add Workout</div>
 
-                <form onSubmit={handleAddWorkout}>
+                <form >
                     <div className={`${styles.section} ${styles.row}`}>
 
                         <div className={styles.field}>

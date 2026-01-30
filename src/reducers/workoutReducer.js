@@ -37,11 +37,9 @@ export  const appendWorkout=(content)=>{
     return async(dispatch)=>{
         try{
             const newWorkout=await workoutService.create(content)
-            console.log("new workout added : ", newWorkout)
             dispatch(createWorkout(newWorkout))
         }
         catch(error){
-            console.log("error occured while creating workout :" , error.message)
             dispatch(setNotification({
             type:`error`,
             message:`${content.name} couldn't be added.`
@@ -55,9 +53,8 @@ export const deleteWorkout = (id)=>{
         try{
             const response= await workoutService.remove(id)
             dispatch(removeWorkout(id))
-            console.log("workout was deleted:" , response)}
+        }
         catch(error){
-            console.log("error occured while creating workout :" , error.message)
             dispatch(setNotification({
             type:`error`,
             message:`${error.message}`
@@ -69,7 +66,6 @@ export const deleteWorkout = (id)=>{
 export const editWorkout=(id , workout)=>{
     return async(dispatch)=>{
         const response = await  workoutService.change(id , workout)
-        console.log("workout was edited")
         dispatch(edit(response))
     }
 }
