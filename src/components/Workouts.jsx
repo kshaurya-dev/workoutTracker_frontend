@@ -4,7 +4,6 @@ import { useSelector ,  useDispatch} from "react-redux"
 import styles from "../designs/Workouts.module.css"
 import Notification from "./Notification"
 import { setNotification } from "../reducers/notificationReducer"
-
 import { deleteWorkout } from "../reducers/workoutReducer"
 import EditForm from "./EditForm"
 import Confirm from "./Confirm"
@@ -13,12 +12,26 @@ import LoadingOverlay from "./LoadingOverlay"
 export default function Workouts() {
 
   const dispatch = useDispatch()
+
   const [isDeleting, setIsDeleting]=useState(false)
   const [openIds, setOpenIds] = useState(new Set())
-  const workouts=useSelector( state => state.workouts)
   const [workoutToEdit , setWorkoutToEdit]=useState()
   const [workoutToDelete , setWorkoutToDelete] = useState()
+  
+  const workouts=useSelector( state => state.workouts)
+  
+ const renderDate = (str) => {
+  const date = new Date(str);
 
+  const datePart = date.toLocaleDateString("en-GB");
+  const timePart = date.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  return `${datePart} · ${timePart}`;
+};
   const handleDelete = async()=>{
     const timer = setTimeout(()=> setIsDeleting(true), 10)
     try{
@@ -77,8 +90,8 @@ export default function Workouts() {
                   <div>
                     <div className={styles.cardTitle}>{w.name}</div>
                     <div className={styles.meta}>
-                      {w.date.slice(0,10)} · {w.date.slice(12,16)} · {w.duration} min
-                    </div>
+                      {renderDate(w.date)} · {w.duration} min
+                      </div>
                   </div>
                 </button>
 
@@ -106,7 +119,7 @@ export default function Workouts() {
                       <div className={styles.setRow}>
                         {ex.sets.map(s => (
                           <span key={s.id} className={styles.set}>
-                            {s.weight} × {s.reps}
+                            {s.reps} × {s.weight}
                           </span>
                         ))}</div>
                     </div>
@@ -119,6 +132,9 @@ export default function Workouts() {
           )
         })}
       </div>
+    </div>
+    <div>
+     
     </div>
   </>
   )

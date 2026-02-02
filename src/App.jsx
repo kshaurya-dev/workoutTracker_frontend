@@ -3,6 +3,7 @@ import SignUp from "./components/SignUp"
 import Workouts from "./components/Workouts"
 import Add from "./components/Add"
 import Landing from "./components/Landing"
+import Statistics from "./components/Statistics/Statistics"
 
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react"
@@ -68,6 +69,7 @@ const App = () => {
               <div className={styles.links}>
                 <Link className={styles.link} to="/add"> Add Workout </Link>
                 <Link className={styles.link} to="/workouts">My Workouts</Link>
+                <Link className={styles.link} to="/stats"> Statistics </Link>
               </div>
 
               <button className={styles.logout} onClick={() => setLoggingOut(user)}>
@@ -89,6 +91,7 @@ const App = () => {
               {/* if they try /workouts without login */}
               <Route path="/workouts" element={<Navigate to="/login" replace />} />
               <Route path="/add" element={<Navigate to="/login" replace />} />
+               
             </>
           ) : (
             /* ------- LOGGED IN ROUTES ------- */
@@ -99,6 +102,7 @@ const App = () => {
               {/* if logged in and they go to /login */}
               <Route path="/login" element={<Navigate to="/workouts" replace />} />
               <Route path="/signup" element={<Navigate to="/workouts" replace />} />
+              <Route path="/stats" element={<Statistics />} />
               <Route path="/" element={<Navigate to="/workouts" replace />} />
             </>
           )}

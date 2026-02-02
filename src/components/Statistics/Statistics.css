@@ -1,0 +1,91 @@
+.statsPage {
+  padding: 40px 48px;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at top left,
+    rgba(24, 26, 30, 0.08),
+    transparent 40%
+  );
+}
+
+/* Header Section */
+.statsHeader {
+  margin-top: 24px;
+  margin-bottom: 28px;
+}
+
+.statsTitle {
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+  color: #e6e6e6;
+}
+
+
+/* Charts Layout */
+.chartsRow {
+  display: flex;
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* Chart Card */
+.chartCard {
+  flex: 1;
+  background: linear-gradient(
+    145deg,
+    #262628,
+    #1f1f21
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 24px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Soft glow border effect */
+.chartCard::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(98, 110, 128, 0.5),
+    transparent 60%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.2;
+}
+
+/* Hover Lift */
+.chartCard:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(13, 87, 198, 0.15);
+}
+
+/* Chart Titles */
+.chartTitle {
+  font-size: 13px;
+  color: #9aa0a6;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .chartsRow {
+    flex-direction: column;
+  }
+}

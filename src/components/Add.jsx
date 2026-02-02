@@ -16,6 +16,7 @@ const Add=()=>{
             name:"",
             duration:"" , 
             notes:"",
+            date:"",
             exercises:[]
     })
     const addWorkout =async(event)=>{
@@ -33,11 +34,9 @@ const Add=()=>{
         else{
             const timer = setTimeout(()=>setShowLoading(true),200)
             try{
-                const currentDate = new Date()
-            const newWorkout={...workout ,date:currentDate}
-            await dispatch(appendWorkout(newWorkout))
+            await dispatch(appendWorkout({...workout,date:new Date(workout.date)}))
             setWorkout({
-                name: "",duration: "",notes: "",exercises: []
+                name: "",duration: "",notes: "",date:"",exercises: []
             })
             dispatch(setNotification({
                 type:`success`,

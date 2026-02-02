@@ -19,7 +19,7 @@ const EditForm=({workout , setWorkoutToEdit})=>{
                 duration : w.duration , 
                 notes: w.notes ,
                 exercises: w.exercises,
-                date: w.date
+                date: new Date(w.date)
             }
             dispatch(editWorkout(workout.id,editedWorkout))
             dispatch(setNotification({

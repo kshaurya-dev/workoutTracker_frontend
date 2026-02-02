@@ -151,6 +151,14 @@ const WorkoutForm=({workout , setWorkout , addWorkout})=>{
                             <input value={workout.duration}
                             onChange={e=>setWorkout({...workout , duration:e.target.value})}/>
                         </div>
+                        <div className={styles.field}>
+                            <label>Date: </label>
+                            <input value={workout.date} type="datetime-local"
+                            onChange={e=>{
+                                console.log("selected : " , e.target.value)
+                                setWorkout({...workout , date:e.target.value})}
+                            }/>
+                        </div>
                     </div>
                     <div className={styles.section}>
                         <div className={styles.field}>
