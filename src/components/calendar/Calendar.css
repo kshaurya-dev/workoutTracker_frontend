@@ -1,0 +1,140 @@
+.dashboardLayout {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 40px;
+}
+.calendarCard {
+  background: linear-gradient(145deg, #262628, #1f1f21);
+  padding:20px;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.05);
+  width: 400px;
+}
+.overviewRow {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+.universalStats {
+  width: 420px;   /* same width as calendarCard */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.statCard {
+  background: linear-gradient(145deg, #2b2b2c, #23232b);
+  border-radius: 18px;
+  border: 1px solid rgba(183, 175, 206, 0.05);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;   /* stack label + value */
+  justify-content: center;
+  gap: 6px;
+  min-height: 80px;
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(39, 37, 47, 0.35);
+}
+
+.statValue {
+  font-size: 18px;
+  font-weight: 600;
+  color: #056be8;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #9aa0a6;
+}
+.calendarHeader {
+    display: flex;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #e6e6e6;
+  justify-content: space-between;
+align-items: center;
+}
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+}
+.weekday {
+  text-align: center;
+  font-size: 13px;
+  color: #9aa0a6;
+  margin-bottom: 8px;
+}
+.dayCell {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  font-size: 14px;
+  color: #cbd5e1;
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.dayCell:hover {
+  background: rgba(59,130,246,0.15);
+}
+.dayCell.worked {
+  background: rgba(16,185,129,0.25);
+  color: #10b981;
+  font-weight: 600;
+}
+.dayCell.worked:hover {
+  background: rgba(3, 97, 66, 0.25);
+  color: #10b981;
+  font-weight: 600;
+}
+.navigationBtn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.navigationBtn:hover {
+  background: #343232;
+}
+
+.navigationBtn:active {
+  transform: scale(0.95);
+}
+.tooltip {
+  position: absolute;
+  bottom: 120%;          /* appear above the circle */
+  left: 50%;
+  transform: translateX(-50%);
+  
+ background: rgba(16,185,129,0.9);
+  color: #0e0e0f;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Show tooltip on hover */
+.dayCell:hover .tooltip {
+  opacity: 100;
+  transform: translateX(-50%) translateY(-4px);
+}
