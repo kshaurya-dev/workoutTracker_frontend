@@ -2,10 +2,11 @@ import { Line  , Bar} from "react-chartjs-2"
 import Confirm from "../Confirm"
 import { useState } from "react"
 import exerciseService from '../../services/statistics/history'
-import ExerciseSelect from "../ExerciseSelect/ExerciseSelect"
+import SearchField from "../SearchField/SearchField"
 import { useSelector } from "react-redux"
 import Calendar from "../calendar/Calendar.jsx"
 import './Statistics.css'
+import {EXERCISES} from '../../data/exercises.js'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -33,8 +34,12 @@ const Statistics=()=>{
  // const exercise = 'hammer_curl'
   const history = exerciseService.getExerciseHistory(workouts , exercise.exercise_id)
   
+  const handleExerciseSelect =(item)=>{
+    console.log(item)
+    setExercise(item)
+  }
 
-   const options = {
+  const options = {
   responsive: true,
   plugins: {
     tooltip: {
@@ -100,15 +105,16 @@ borderColor: "rgb(50, 10, 53)",
 if(!history.length)return (
   <div className="statsPage">
     <Calendar/>
-   <ExerciseSelect onSelect={setExercise}/>
-   <div className="statsTitle">No data  found</div>
+   <SearchField onSelect={(item)=>handleExerciseSelect(item)} list={EXERCISES} 
+   placeHolder='search Exercise' field="name"/>
   </div>
   )
 else 
   return (
     <div className="statsPage">
       <Calendar/>
-      <ExerciseSelect onSelect={setExercise}/>
+      <SearchField onSelect={(item)=>handleExerciseSelect(item)} list={EXERCISES} 
+   placeHolder='search Exercise' field="name"/>
 
       <div className="statsHeader">
         <h2 className="statsTitle">

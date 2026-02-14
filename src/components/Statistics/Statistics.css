@@ -83,18 +83,6 @@
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
-.testButton{
-  border: 5px;
-  border-color: #000;
-  border-width: 5px;
-  color: aliceblue;
-  padding: 10px;
-}
-.testButton:hover{
-  border: 5px;
-  color: rgb(27, 172, 117);
-  
-}
 .overviewRow{
    display: flex;
   justify-content: space-between;

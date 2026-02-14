@@ -80,3 +80,26 @@ export const EXERCISES = [
   { exercise_id: "russian_twist", name: "Russian Twist", primaryMuscle: "core" },
   { exercise_id: "ab_wheel_rollout", name: "Ab Wheel Rollout", primaryMuscle: "core" },
 ]
+export const MONTHS = [
+  { id: 1, month_id: "January", name: "Jan" },
+  { id: 2, month_id: "February", name: "Feb" },
+  { id: 3, month_id: "March", name: "Mar" },
+  { id: 4, month_id: "April", name: "Apr" },
+  { id: 5, month_id: "May", name: "May" },
+  { id: 6, month_id: "June", name: "Jun" },
+  { id: 7, month_id: "July", name: "Jul" },
+  { id: 8, month_id: "August", name: "Aug" },
+  { id: 9, month_id: "September", name: "Sep" },
+  { id: 10, month_id: "October", name: "Oct" },
+  { id: 11, month_id: "November", name: "Nov" },
+  { id: 12, month_id: "December", name: "Dec" }
+]
+export const YEARS = [
+  { id: 1, name: 2020 },
+  { id: 2, name: 2021 },
+  { id: 3, name: 2022 },
+  { id: 4, name: 2023 },
+  { id: 5, name: 2024 },
+  { id: 6, name: 2025 },
+  { id: 7, name: 2026 }
+]

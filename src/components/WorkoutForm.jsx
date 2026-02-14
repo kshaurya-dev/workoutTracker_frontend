@@ -3,7 +3,9 @@ import styles from "../designs/Add.module.css"
 import { setNotification } from "../reducers/notificationReducer"
 import { useDispatch } from "react-redux"
 import Notification from "./Notification"
-import ExerciseSelect from "./ExerciseSelect/ExerciseSelect"
+import SearchField from "./SearchField/SearchField"
+import { EXERCISES } from '../data/exercises'
+
 const ExerciseForm=({addExercise , setShowExercise , index})=>{
     const dispatch = useDispatch()
     const [showSet , setShowSet]=useState(false)
@@ -65,13 +67,14 @@ const ExerciseForm=({addExercise , setShowExercise , index})=>{
         <div className={styles.exerciseTopRow}>
             <div className={styles.exerciseName}>
                 <label>Exercise{index + 1}:</label>
-                <ExerciseSelect  onSelect={(ex) =>{
+                <SearchField  onSelect={(ex) =>{
                 setExercise({...exercise,
                 exercise_id: ex.exercise_id,
                 name: ex.name,
                 primaryMuscle: ex.primaryMuscle,
                 })
-                }}/>
+                } } list={EXERCISES} placeHolder='search Exercise'
+                field='name'/>
             </div>
 
     <div className={styles.setsInline}>

@@ -1,8 +1,8 @@
 import { useMemo , useState} from 'react'
 import { useSelector } from 'react-redux'
-
+import statisticsService from '../../services/statistics/history'
 import './Calendar.css'
-
+import getWorkoutStreaks from '../../services/statistics/streak'
 const Calendar =()=>{
 
     const workouts = useSelector(state => state.workouts)
@@ -14,12 +14,14 @@ const Calendar =()=>{
     const setPreviousMonth=()=>setCurrentDate(new Date(year , month-1 , 1))
     const setNextMonth=()=>setCurrentDate(new Date(year , month+1 , 1))
     
+    const {currentStreak, bestStreak} = getWorkoutStreaks(workouts)
     const totalWorkoutsThisMonth = workouts.filter(w => {
         const d = new Date(w.date)
         return d.getFullYear() === year && d.getMonth() === month
     })
 
-    const volumeThisMonth = totalWorkoutsThisMonth.reduce((sum,workout)=>sum + workout.volume, 0)
+    const volumeThisMonth = statisticsService.getTotalVolume(workouts , month , year)
+
     const workoutMap = useMemo(()=>{
         const map={}
 
@@ -57,13 +59,13 @@ const Calendar =()=>{
 
     <div className="statCard">
        <div className="statLabel">Current Streak</div>
-      <div className="statValue">3</div>
+      <div className="statValue">{currentStreak}</div>
      
     </div>
 
     <div className="statCard">
       <div className="statLabel">Best Streak</div>
-      <div className="statValue">9</div>
+      <div className="statValue">{bestStreak}</div>
     </div>
 
     </div>

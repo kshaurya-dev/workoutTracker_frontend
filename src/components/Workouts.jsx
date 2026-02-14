@@ -8,19 +8,35 @@ import { deleteWorkout } from "../reducers/workoutReducer"
 import EditForm from "./EditForm"
 import Confirm from "./Confirm"
 import LoadingOverlay from "./LoadingOverlay"
-
+import SearchField from "./SearchField/SearchField"
+import {MONTHS ,YEARS} from '../data/exercises'
 export default function Workouts() {
 
   const dispatch = useDispatch()
+  const today =  new Date()
+
+  const [month , setMonth]= useState(today.getMonth())
+  const [year , setYear] = useState(today.getFullYear())
+console.log(year)
+  const handleMonthFilter =(item)=>{
+    setMonth(item.id-1)
+  }
+  const handleYearFilter =(item)=>{
+    setYear(item.name)
+  }
 
   const [isDeleting, setIsDeleting]=useState(false)
   const [openIds, setOpenIds] = useState(new Set())
   const [workoutToEdit , setWorkoutToEdit]=useState()
   const [workoutToDelete , setWorkoutToDelete] = useState()
   
-  const workouts=useSelector( state => state.workouts)
-  
- const renderDate = (str) => {
+  const workoutList=useSelector( state => state.workouts)
+
+  const workouts= workoutList.filter(w=>{
+    const date = new Date(w.date)
+    return (date.getMonth()===month && date.getFullYear()===year)
+  })
+  const renderDate = (str) => {
   const date = new Date(str);
 
   const datePart = date.toLocaleDateString("en-GB");
@@ -68,7 +84,23 @@ export default function Workouts() {
     <LoadingOverlay show={isDeleting} text={'Deleting...'}/>
     <Notification />
     <div className={styles.page}>
-      <h1 className={styles.title}>My Workouts</h1>
+
+      <div className={styles.header}>
+        <div className={styles.title}>My Workouts</div>
+        <div className={styles.filterQuery}>
+
+          <SearchField onSelect={(item)=>handleMonthFilter(item)}
+            list={MONTHS}
+            placeHolder={today.toLocaleString('default', { month: 'long' })}
+            field="name"
+            />
+
+          <SearchField onSelect={(item)=>handleYearFilter(item)}
+            list={YEARS}
+            placeHolder={year} field="name"/>
+
+        </div>
+      </div>
 
       <div className={styles.list}>
         {workouts.map(w => {
