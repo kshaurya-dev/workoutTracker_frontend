@@ -17,9 +17,13 @@ const getTotalVolume = (workouts , month , year )=>{
     },0)
     return totalVolume
 }
-const getExerciseHistory=(workouts , ex_id)=>{
+const getExerciseHistory=(workouts , ex_id , month , year)=>{
     const filteredWorkouts = workouts.filter(w=>{
-        return w.exercises.some(ex=>ex.exercise_id ===ex_id)
+        const workoutDate = new Date(w.date)
+        if(workoutDate.getFullYear()===year && workoutDate.getMonth()===month){
+            return w.exercises.some(ex=>ex.exercise_id ===ex_id)
+        }
+        else  return false
     })
     const exercises = filteredWorkouts.map(workout => {
     const exercise = workout.exercises.find(

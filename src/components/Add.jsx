@@ -34,6 +34,7 @@ const Add=()=>{
         else{
             const timer = setTimeout(()=>setShowLoading(true),200)
             try{
+                console.log(workout)
             await dispatch(appendWorkout({...workout,date:new Date(workout.date)}))
             setWorkout({
                 name: "",duration: "",notes: "",date:"",exercises: []
