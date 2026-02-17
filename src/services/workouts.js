@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useSelector } from "react-redux"
-const baseUrl = 'http://localhost:3001/api/workouts'
+const baseUrl = `${import.meta.env.VITE_API_URL}/api/workouts`
 
 let token = null
 
